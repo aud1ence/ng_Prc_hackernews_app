@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
   selector: 'app-like',
@@ -6,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./like.component.scss']
 })
 export class LikeComponent implements OnInit {
-  like = 0;
+  @Input() like = 0;
+  @Output() result = new EventEmitter<number>();
+
   constructor() { }
 
   ngOnInit(): void {
@@ -14,5 +17,6 @@ export class LikeComponent implements OnInit {
 
   showLike() {
     this.like++;
+    this.result.emit(this.like);
   }
 }

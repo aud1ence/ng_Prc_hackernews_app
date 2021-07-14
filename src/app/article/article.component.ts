@@ -7,6 +7,8 @@ import {Article} from "../article";
   styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
+  filterTerm: any;
+  panelOpenState = false;
   article: Article = {};
   articles: Article[] = [
     {

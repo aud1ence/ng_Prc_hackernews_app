@@ -1,34 +1,38 @@
 <div class="container">
   <div class="jumbotron">
     <h1 class="display-4">Today's article</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-      featured content or information.</p>
-    <div *ngFor="let article of articles">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Search anything" [(ngModel)]="filterTerm">
+    </div>
+    <div *ngFor="let article of articles | filter:filterTerm ; index as i">
       <hr class="my-4">
-      <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>: <app-like></app-like>
+      <a href="{{ article.url }}" target="_blank">{{ i + 1 + ' . ' }}{{ article.title }}</a>
+      <app-like></app-like>
     </div>
     <hr class="my-4">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h2>Article Information</h2>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <table >
+          <tr>
+            <td colspan="2"><input type="text" class="form-control col-12" placeholder="Title" [(ngModel)]="article.title"></td>
+          </tr>
+          <tr>
+            <td colspan="2"><input type="text" class="form-control col-12" placeholder="URL" [(ngModel)]="article.url"></td>
+          </tr>
+          <tr>
+            <td colspan="2" >
+              <button style="width: 50%; margin-left: 400%" class="btn btn-outline-primary mb-2" (click)="addNewArticle()">Add article</button>
+            </td>
+          </tr>
+        </table>
+      </mat-expansion-panel>
+    </mat-accordion>
 
-    <div>
-      <h2>Article Information</h2>
-      <table>
-        <tr>
-          <td>Title:</td>
-          <td><textarea class="form-control" [(ngModel)]="article.title" cols="70"></textarea></td>
-        </tr>
-        <tr>
-          <td>Url:</td>
-          <td>
-            <textarea class="form-control" [(ngModel)]="article.url" cols="70"></textarea>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2" >
-            <button style="width: 100%" class="btn btn-outline-primary" (click)="addNewArticle()">Add article</button>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <!--    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>-->
   </div>
 </div>
